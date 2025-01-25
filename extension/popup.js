@@ -19,11 +19,7 @@ function closePopup() {
 }
 
 function init({ sfHost, inDevConsole, inLightning, inUnderstander }) {
-    // Modified for dev environment
-    let addonVersion = (chrome.runtime) 
-        ? chrome.runtime.getManifest().version
-        : 'MockVersion';
-
+    let addonVersion = chrome.runtime.getManifest().version
     sfConn.getSession(sfHost).then(() => {
 
         ReactDOM.render(h(App, {
