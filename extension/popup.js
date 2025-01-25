@@ -7,7 +7,6 @@ let h = React.createElement;
 {
     parent.postMessage({ insextInitRequest: true }, "*");
     addEventListener("message", function initResponseHandler(e) {
-        console.log('e.data', e.data)
         if (e.source == parent && e.data.insextInitResponse) {
             removeEventListener("message", initResponseHandler);
             init(e.data);
@@ -20,7 +19,10 @@ function closePopup() {
 }
 
 function init({ sfHost, inDevConsole, inLightning, inUnderstander }) {
-    let addonVersion = chrome.runtime.getManifest().version;
+    // Modified for dev environment
+    let addonVersion = (chrome.runtime) 
+        ? chrome.runtime.getManifest().version
+        : 'MockVersion';
 
     sfConn.getSession(sfHost).then(() => {
 

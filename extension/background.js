@@ -1,5 +1,10 @@
 "use strict";
 
+const mockSalesforceData = {
+    sfHost: "https://justpracticing-dev-ed.develop.my.salesforce.com",
+    sessionId: "mock-session-id",
+};
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Perform cookie operations in the background page, because not all foreground pages have access to the cookie API.
     // Firefox does not support incognito split mode, so we use sender.tab.cookieStoreId to select the right cookie store.
@@ -12,6 +17,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // http://salesforce.stackexchange.com/questions/23277/different-session-ids-in-different-contexts
         // There is no straight forward way to unambiguously understand if the user authenticated against salesforce.com or cloudforce.com
         // (and thereby the domain of the relevant cookie) cookie domains are therefore tried in sequence.
+
+        // Modified for dev environment. This will only work when the cookie for the sfHost host is actually stored in the browser.
+        if (request.url.includes('salesforce-mock')) {
+            request.url = mockSalesforceData.sfHost;
+        }
+
         chrome.cookies.get({ url: request.url, name: "sid", storeId: sender.tab.cookieStoreId }, cookie => {
             if (!cookie) {
                 sendResponse(null);

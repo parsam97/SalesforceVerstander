@@ -40,7 +40,11 @@ function initButton(sfHost, inInspector) {
             }
         });
 
-        let popupSrc = chrome.extension.getURL("popup.html");
+        // Modified for dev environment
+        let popupSrc = (chrome.extension) 
+            ? chrome.extension.getURL("popup.html")
+            : 'http://127.0.0.1:8080/extension/popup.html'
+
         let popupEl = document.createElement("iframe");
         popupEl.className = "insext-popup";
         popupEl.src = popupSrc;
