@@ -1,5 +1,5 @@
 /* global React ReactDOM */
-import { sfConn, apiVersion } from "./understander.js";
+import { sfConn, apiVersion } from "./verstander.js";
 import { getAllFieldSetupLinks } from "./setup-links.js";
 
 let h = React.createElement;
@@ -18,7 +18,7 @@ function closePopup() {
     parent.postMessage({ insextClosePopup: true }, "*");
 }
 
-function init({ sfHost, inDevConsole, inLightning, inUnderstander }) {
+function init({ sfHost, inDevConsole, inLightning, inVerstander }) {
     let addonVersion = chrome.runtime.getManifest().version
     sfConn.getSession(sfHost).then(() => {
 
@@ -26,7 +26,7 @@ function init({ sfHost, inDevConsole, inLightning, inUnderstander }) {
             sfHost,
             inDevConsole,
             inLightning,
-            inUnderstander,
+            inVerstander,
             addonVersion,
         }), document.getElementById("root"));
 
@@ -101,7 +101,7 @@ class App extends React.PureComponent {
             sfHost,
             inDevConsole,
             inLightning,
-            inUnderstander,
+            inVerstander,
             addonVersion,
         } = this.props;
         let { isInSetup, contextUrl } = this.state;
@@ -230,7 +230,7 @@ class App extends React.PureComponent {
                     "Salesforce Verstander"
                 ),
                 h("div", { className: "main" },
-                    h(AllDataBox, { ref: "showAllDataBox", sfHost, showDetailsSupported: !inLightning && !inUnderstander, linkTarget, contextUrl }),
+                    h(AllDataBox, { ref: "showAllDataBox", sfHost, showDetailsSupported: !inLightning && !inVerstander, linkTarget, contextUrl }),
                     h("div", { className: "global-box" },
                         h("a", { ref: "treeQueryBtn", href: "tree-query.html?" + hostArg, target: linkTarget, className: "button" }, h("u", {}, "T"), "reeQuery"),
                         // h("a", { ref: "dataExportBtn", href: "data-export.html?" + hostArg, target: linkTarget, className: "button" }, "Data ", h("u", {}, "E"), "xport"),

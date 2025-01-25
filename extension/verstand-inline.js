@@ -20,11 +20,11 @@ function showStdPageDetails(metadataResponse, allFieldSetupLinks) {
 
     function softShowFieldDetails(e) {
         let labelElement = e.currentTarget;
-        if (labelElement.querySelector(".salesforce-understander-details") != null) {
+        if (labelElement.querySelector(".salesforce-verstander-details") != null) {
             return;
         }
         let output = document.createElement("div");
-        output.classList.add("salesforce-understander-details");
+        output.classList.add("salesforce-verstander-details");
 
         // if there is a Help Text or not
         let labelText = labelElement.firstElementChild ? labelElement.firstElementChild.firstChild.textContent : labelElement.textContent;
@@ -68,7 +68,7 @@ function showStdPageDetails(metadataResponse, allFieldSetupLinks) {
         }
 
         if (fieldDetails == null || fieldDetails.length == 0) {
-            output.classList.add("salesforce-understander-error");
+            output.classList.add("salesforce-verstander-error");
             output.appendChild(E("p", [T("No fields with matching label?!")]));
         } else {
             if (fieldDetails.length > 1) {
@@ -113,14 +113,14 @@ function showStdPageDetails(metadataResponse, allFieldSetupLinks) {
     }
 
     function softHideFieldDetails(e) {
-        let detailsElement = e.currentTarget.querySelector(".salesforce-understander-details");
+        let detailsElement = e.currentTarget.querySelector(".salesforce-verstander-details");
         if (detailsElement != null && !detailsElement.classList.contains("sticky")) {
             detailsElement.remove();
         }
     }
 
     function makeFieldDetailsSticky(e) {
-        let detailsElement = e.currentTarget.querySelector(".salesforce-understander-details");
+        let detailsElement = e.currentTarget.querySelector(".salesforce-verstander-details");
         if (detailsElement != null) {
             detailsElement.classList.add("sticky");
         }

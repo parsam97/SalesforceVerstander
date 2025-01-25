@@ -1,4 +1,4 @@
-import { sfConn, apiVersion } from "./understander.js";
+import { sfConn, apiVersion } from "./verstander.js";
 
 export async function getObjectSetupLinks(sfHost, sobjectName) {
     let { records: entityDefinitions } = await sfConn.rest(`/services/data/v${apiVersion}/tooling/query/?q=${encodeURIComponent(`select DurableId from EntityDefinition where QualifiedApiName = '${sobjectName}'`)}`);

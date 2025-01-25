@@ -1,18 +1,18 @@
-.salesforce-understander-details.sticky {
+.salesforce-verstander-details.sticky {
 	background: linear-gradient(to right, #eee, #ddd);
 	border: solid 1px grey; 
 }
-.salesforce-understander-details table {
+.salesforce-verstander-details table {
 	text-align: left;
 	font-size: 0.9em;
 }
-.salesforce-understander-details.inaccurate {
+.salesforce-verstander-details.inaccurate {
 	border: solid 3px blue; 	
 }
-.salesforce-understander-details .salesforce-understander-minor {
+.salesforce-verstander-details .salesforce-verstander-minor {
 	font-size: 0.7em;
 }
-.salesforce-understander-details {
+.salesforce-verstander-details {
 	color: #333333;
 	z-index:1; 
 	background: linear-gradient(to right, #ddd, #ccc); 
@@ -25,7 +25,7 @@
 	padding: 4px;
 	text-align: center;
 }
-.salesforce-understander-details .name {
+.salesforce-verstander-details .name {
 	font-weight: bold;
 	font-size: 1.1em;
 	text-align: center;

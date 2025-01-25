@@ -1,5 +1,5 @@
 /* global React ReactDOM */
-import { sfConn, apiVersion } from "./understander.js";
+import { sfConn, apiVersion } from "./verstander.js";
 /* global initButton */
 import { Enumerable, DescribeInfo, copyToClipboard, initScrollTable } from "./data-load.js";
 

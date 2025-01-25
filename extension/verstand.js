@@ -1,5 +1,5 @@
 /* global React ReactDOM */
-import { sfConn, apiVersion } from "./understander.js";
+import { sfConn, apiVersion } from "./verstander.js";
 /* global initButton */
 import { getObjectSetupLinks, getFieldSetupLinks } from "./setup-links.js";
 
@@ -160,7 +160,7 @@ class Model {
                     if (this.useToolingApi) {
                         args.set("useToolingApi", "1");
                     }
-                    location.href = "understand.html?" + args;
+                    location.href = "verstand.html?" + args;
                 })
             );
         } else if (this.editMode == "create") {
@@ -178,7 +178,7 @@ class Model {
                         args.set("useToolingApi", "1");
                     }
                     args.set("recordId", result.id);
-                    location.href = "understand.html?" + args;
+                    location.href = "verstand.html?" + args;
                 })
             );
         } else {
@@ -767,7 +767,7 @@ class FieldRow extends TableRow {
                         args.set("useToolingApi", "1");
                     }
                     args.set("recordId", recordId);
-                    return { href: "understand.html?" + args, text: "Show all data (" + sobject.name + ")" };
+                    return { href: "verstand.html?" + args, text: "Show all data (" + sobject.name + ")" };
                 });
         } else {
             links = [];
@@ -782,7 +782,7 @@ class FieldRow extends TableRow {
         if (this.rowList.model.useToolingApi) {
             args.set("useToolingApi", "1");
         }
-        return "understand.html?" + args;
+        return "verstand.html?" + args;
     }
     sortKey(col) {
         switch (col) {
@@ -874,7 +874,7 @@ class ChildRow extends TableRow {
             if (this.rowList.model.useToolingApi) {
                 args.set("useToolingApi", "1");
             }
-            return "understand.html?" + args;
+            return "verstand.html?" + args;
         }
         return "";
     }

@@ -1,4 +1,4 @@
-import {sfConn, apiVersion} from "./understander.js";
+import {sfConn, apiVersion} from "./verstander.js";
 
 // Inspired by C# System.Linq.Enumerable
 export function Enumerable(iterable) {

@@ -27,11 +27,11 @@
             "all_frames": true,
             "css": [
                 "button.css",
-                "understand-inline.css"
+                "verstand-inline.css"
             ],
             "js": [
                 "button.js",
-                "understand-inline.js"
+                "verstand-inline.js"
             ]
         }
     ],
@@ -42,7 +42,7 @@
     },
     "web_accessible_resources": [
         "popup.html",
-        "understand.html"
+        "verstand.html"
     ],
     "manifest_version": 2
 }
