@@ -232,15 +232,16 @@ class App extends React.PureComponent {
                 h("div", { className: "main" },
                     h(AllDataBox, { ref: "showAllDataBox", sfHost, showDetailsSupported: !inLightning && !inUnderstander, linkTarget, contextUrl }),
                     h("div", { className: "global-box" },
-                        h("a", { ref: "dataExportBtn", href: "data-export.html?" + hostArg, target: linkTarget, className: "button" }, "Data ", h("u", {}, "E"), "xport"),
-                        h("a", { ref: "dataImportBtn", href: "data-import.html?" + hostArg, target: linkTarget, className: "button" }, "Data ", h("u", {}, "I"), "mport"),
-                        h("a", { ref: "limitsBtn", href: "limits.html?" + hostArg, target: linkTarget, className: "button" }, "Org ", h("u", {}, "L"), "imits"),
-                        // Advanded features should be put below this line, and the layout adjusted so they are below the fold
-                        h("a", { ref: "metaRetrieveBtn", href: "metadata-retrieve.html?" + hostArg, target: linkTarget, className: "button" }, h("u", {}, "D"), "ownload Metadata"),
-                        h("a", { ref: "apiExploreBtn", href: "explore-api.html?" + hostArg, target: linkTarget, className: "button" }, "E", h("u", {}, "x"), "plore API"),
-                        // Workaround for in Lightning the link to Setup always opens a new tab, and the link back cannot open a new tab.
-                        inLightning && isInSetup && h("a", { ref: "homeBtn", href: `https://${sfHost}/lightning/page/home`, title: "You can choose if you want to open in a new tab or not", target: linkTarget, className: "button" }, "Salesforce ", h("u", {}, "H"), "ome"),
-                        inLightning && !isInSetup && h("a", { ref: "homeBtn", href: `https://${sfHost}/lightning/setup/SetupOneHome/home?setupApp=all`, title: "You can choose if you want to open in a new tab or not", target: linkTarget, className: "button" }, "Setup ", h("u", {}, "H"), "ome"),
+                        h("a", { ref: "treeQueryBtn", href: "tree-query.html?" + hostArg, target: linkTarget, className: "button" }, h("u", {}, "T"), "reeQuery"),
+                        // h("a", { ref: "dataExportBtn", href: "data-export.html?" + hostArg, target: linkTarget, className: "button" }, "Data ", h("u", {}, "E"), "xport"),
+                        // h("a", { ref: "dataImportBtn", href: "data-import.html?" + hostArg, target: linkTarget, className: "button" }, "Data ", h("u", {}, "I"), "mport"),
+                        // h("a", { ref: "limitsBtn", href: "limits.html?" + hostArg, target: linkTarget, className: "button" }, "Org ", h("u", {}, "L"), "imits"),
+                        // // Advanded features should be put below this line, and the layout adjusted so they are below the fold
+                        // h("a", { ref: "metaRetrieveBtn", href: "metadata-retrieve.html?" + hostArg, target: linkTarget, className: "button" }, h("u", {}, "D"), "ownload Metadata"),
+                        // h("a", { ref: "apiExploreBtn", href: "explore-api.html?" + hostArg, target: linkTarget, className: "button" }, "E", h("u", {}, "x"), "plore API"),
+                        // // Workaround for in Lightning the link to Setup always opens a new tab, and the link back cannot open a new tab.
+                        // inLightning && isInSetup && h("a", { ref: "homeBtn", href: `https://${sfHost}/lightning/page/home`, title: "You can choose if you want to open in a new tab or not", target: linkTarget, className: "button" }, "Salesforce ", h("u", {}, "H"), "ome"),
+                        // inLightning && !isInSetup && h("a", { ref: "homeBtn", href: `https://${sfHost}/lightning/setup/SetupOneHome/home?setupApp=all`, title: "You can choose if you want to open in a new tab or not", target: linkTarget, className: "button" }, "Setup ", h("u", {}, "H"), "ome"),
                     )
                 ),
                 h("div", { className: "footer" },
