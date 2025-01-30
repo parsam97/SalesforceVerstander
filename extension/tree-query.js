@@ -58,6 +58,7 @@ class QueryHistory {
 
 class Model {
     constructor({ sfHost, args }) {
+        this.darkmode = true;
         this.sfHost = sfHost;
         this.queryInput = null;
         this.initialQuery = "";
@@ -846,6 +847,7 @@ let h = React.createElement;
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.onThemeSwitch = this.onThemeSwitch.bind(this);
         this.onQueryAllChange = this.onQueryAllChange.bind(this);
         this.onQueryToolingChange = this.onQueryToolingChange.bind(this);
         this.onSelectHistoryEntry = this.onSelectHistoryEntry.bind(this);
@@ -862,6 +864,21 @@ class App extends React.Component {
         this.onCopyAsJson = this.onCopyAsJson.bind(this);
         this.onResultsFilterInput = this.onResultsFilterInput.bind(this);
         this.onStopExport = this.onStopExport.bind(this);
+    }
+    onThemeSwitch(e) {
+        let { model } = this.props;
+        model.darkmode = e.target.checked;
+        model.didUpdate();
+
+        const rootDiv = document.getElementById("root");
+
+        if (model.darkmode) {
+            rootDiv.classList.add("dark-mode");
+            rootDiv.classList.remove("light-mode");
+        } else {
+            rootDiv.classList.add("light-mode");
+            rootDiv.classList.remove("dark-mode");
+        }
     }
     onQueryAllChange(e) {
         let { model } = this.props;
@@ -952,69 +969,69 @@ class App extends React.Component {
         model.stopExport();
         model.didUpdate();
     }
-    componentDidMount() {
-        let { model } = this.props;
-        let queryInput = this.refs.query;
+    // componentDidMount() {
+    //     let { model } = this.props;
+    //     let queryInput = this.refs.query;
 
-        model.setQueryInput(queryInput);
+    //     model.setQueryInput(queryInput);
 
-        function queryAutocompleteEvent() {
-            model.queryAutocompleteHandler();
-            model.didUpdate();
-        }
-        queryInput.addEventListener("input", queryAutocompleteEvent);
-        queryInput.addEventListener("select", queryAutocompleteEvent);
-        // There is no event for when caret is moved without any selection or value change, so use keyup and mouseup for that.
-        queryInput.addEventListener("keyup", queryAutocompleteEvent);
-        queryInput.addEventListener("mouseup", queryAutocompleteEvent);
+    //     function queryAutocompleteEvent() {
+    //         model.queryAutocompleteHandler();
+    //         model.didUpdate();
+    //     }
+    //     queryInput.addEventListener("input", queryAutocompleteEvent);
+    //     queryInput.addEventListener("select", queryAutocompleteEvent);
+    //     // There is no event for when caret is moved without any selection or value change, so use keyup and mouseup for that.
+    //     queryInput.addEventListener("keyup", queryAutocompleteEvent);
+    //     queryInput.addEventListener("mouseup", queryAutocompleteEvent);
 
-        // We do not want to perform Salesforce API calls for autocomplete on every keystroke, so we only perform these when the user pressed Ctrl+Space
-        // Chrome on Linux does not fire keypress when the Ctrl key is down, so we listen for keydown. Might be https://code.google.com/p/chromium/issues/detail?id=13891#c50
-        queryInput.addEventListener("keydown", e => {
-            if (e.ctrlKey && e.key == " ") {
-                e.preventDefault();
-                model.queryAutocompleteHandler({ ctrlSpace: true });
-                model.didUpdate();
-            }
-        });
-        addEventListener("keydown", e => {
-            if (e.ctrlKey && e.key == "Enter") {
-                e.preventDefault();
-                model.doExport();
-                model.didUpdate();
-            }
-        });
+    //     // We do not want to perform Salesforce API calls for autocomplete on every keystroke, so we only perform these when the user pressed Ctrl+Space
+    //     // Chrome on Linux does not fire keypress when the Ctrl key is down, so we listen for keydown. Might be https://code.google.com/p/chromium/issues/detail?id=13891#c50
+    //     queryInput.addEventListener("keydown", e => {
+    //         if (e.ctrlKey && e.key == " ") {
+    //             e.preventDefault();
+    //             model.queryAutocompleteHandler({ ctrlSpace: true });
+    //             model.didUpdate();
+    //         }
+    //     });
+    //     addEventListener("keydown", e => {
+    //         if (e.ctrlKey && e.key == "Enter") {
+    //             e.preventDefault();
+    //             model.doExport();
+    //             model.didUpdate();
+    //         }
+    //     });
 
-        this.scrollTable = initScrollTable(this.refs.scroller);
-        model.resultTableCallback = this.scrollTable.dataChange;
+    //     this.scrollTable = initScrollTable(this.refs.scroller);
+    //     model.resultTableCallback = this.scrollTable.dataChange;
 
-        let recalculateHeight = this.recalculateSize.bind(this);
-        if (!window.webkitURL) {
-            // Firefox
-            // Firefox does not fire a resize event. The next best thing is to listen to when the browser changes the style.height attribute.
-            new MutationObserver(recalculateHeight).observe(queryInput, { attributes: true });
-        } else {
-            // Chrome
-            // Chrome does not fire a resize event and does not allow us to get notified when the browser changes the style.height attribute.
-            // Instead we listen to a few events which are often fired at the same time.
-            // This is not required in Firefox, and Mozilla reviewers don't like it for performance reasons, so we only do this in Chrome via browser detection.
-            queryInput.addEventListener("mousemove", recalculateHeight);
-            addEventListener("mouseup", recalculateHeight);
-        }
-        function resize() {
-            model.winInnerHeight = innerHeight;
-            model.didUpdate(); // Will call recalculateSize
-        }
-        addEventListener("resize", resize);
-        resize();
-    }
-    componentDidUpdate() {
-        this.recalculateSize();
-    }
-    recalculateSize() {
-        // Investigate if we can use the IntersectionObserver API here instead, once it is available.
-        this.scrollTable.viewportChange();
-    }
+    //     let recalculateHeight = this.recalculateSize.bind(this);
+    //     if (!window.webkitURL) {
+    //         // Firefox
+    //         // Firefox does not fire a resize event. The next best thing is to listen to when the browser changes the style.height attribute.
+    //         new MutationObserver(recalculateHeight).observe(queryInput, { attributes: true });
+    //     } else {
+    //         // Chrome
+    //         // Chrome does not fire a resize event and does not allow us to get notified when the browser changes the style.height attribute.
+    //         // Instead we listen to a few events which are often fired at the same time.
+    //         // This is not required in Firefox, and Mozilla reviewers don't like it for performance reasons, so we only do this in Chrome via browser detection.
+    //         queryInput.addEventListener("mousemove", recalculateHeight);
+    //         addEventListener("mouseup", recalculateHeight);
+    //     }
+    //     function resize() {
+    //         model.winInnerHeight = innerHeight;
+    //         model.didUpdate(); // Will call recalculateSize
+    //     }
+    //     addEventListener("resize", resize);
+    //     resize();
+    // }
+    // componentDidUpdate() {
+    //     this.recalculateSize();
+    // }
+    // recalculateSize() {
+    //     // Investigate if we can use the IntersectionObserver API here instead, once it is available.
+    //     this.scrollTable.viewportChange();
+    // }
     render() {
         let { model } = this.props;
         return h("div", {},
@@ -1027,7 +1044,13 @@ class App extends React.Component {
                     " Salesforce Home"
                 ),
                 " \xa0 ",
-                h("span", {}, model.userInfo)
+                h("span", {}, model.userInfo),
+                " \xa0 ",
+                h("label", { className: "theme-switch" },
+                    h("input", { type: "checkbox", checked: model.darkmode, onChange: this.onThemeSwitch }),
+                    h("span", { className: "theme-slider theme-slider-round" })
+                ),
+                h("span", {}, "Theme")
             ),
             // h("div", { className: "area" },
             //     h("h1", {}, "Export query"),

@@ -45,6 +45,56 @@ body {
   border-radius: 2px;
   fill: white;
 }
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 13px;
+}
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.theme-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.theme-slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 0.5px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .theme-slider {
+  background-color: #2196F3;
+}
+input:focus + .theme-slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+input:checked + .theme-slider:before {
+  -webkit-transform: translateX(8px);
+  -ms-transform: translateX(8px);
+  transform: translateX(8px);
+}
+.theme-slider.theme-slider-round {
+  border-radius: 10px;
+}
+.theme-slider.theme-slider-round:before {
+  border-radius: 50%;
+}
 textarea {
   display:block;
   width: 100%;
