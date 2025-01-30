@@ -1029,77 +1029,77 @@ class App extends React.Component {
                 " \xa0 ",
                 h("span", {}, model.userInfo)
             ),
-            h("div", { className: "area" },
-                h("h1", {}, "Export query"),
-                h("label", {},
-                    h("input", { type: "checkbox", checked: model.queryAll, onChange: this.onQueryAllChange, disabled: model.queryTooling }),
-                    " ",
-                    h("span", {}, "Include deleted and archived records?")
-                ),
-                h("label", { title: "With the tooling API you can query more metadata, but you cannot query regular data" },
-                    h("input", { type: "checkbox", checked: model.queryTooling, onChange: this.onQueryToolingChange, disabled: model.queryAll }),
-                    " ",
-                    h("span", {}, "Use Tooling API?")
-                ),
-                h("label", {},
-                    h("select", { value: JSON.stringify(model.selectedHistoryEntry), onChange: this.onSelectHistoryEntry, className: "query-history" },
-                        h("option", { value: JSON.stringify(null) }, "Query history"),
-                        model.queryHistory.list.map(q => h("option", { key: JSON.stringify(q), value: JSON.stringify(q) }, q.query.substring(0, 300)))
-                    ),
-                    h("a", { href: "about:blank", onClick: this.onClearHistory, title: "Clear query history", className: "char-btn" }, "X")
-                ),
-                h("label", {},
-                    h("select", { value: JSON.stringify(model.selectedSavedEntry), onChange: this.onSelectSavedEntry, className: "query-history" },
-                        h("option", { value: JSON.stringify(null) }, "Saved queries"),
-                        model.savedHistory.list.map(q => h("option", { key: JSON.stringify(q), value: JSON.stringify(q) }, q.query.substring(0, 300)))
-                    ),
-                    h("a", { href: "about:blank", onClick: this.onAddToHistory, title: "Add query to saved history", className: "char-btn" }, "+"),
-                    h("a", { href: "about:blank", onClick: this.onRemoveFromHistory, title: "Remove query from saved history", className: "char-btn" }, "X"),
-                    h("a", { href: "about:blank", onClick: this.onClearSavedHistory, title: "Clear saved history", className: "char-btn" }, "XX")
-                ),
-                h("a", { href: "about:blank", id: "export-help-btn", onClick: this.onToggleHelp }, "Export help"),
-                h("textarea", { id: "query", ref: "query", style: { maxHeight: (model.winInnerHeight - 200) + "px" } }),
-                h("div", { className: "autocomplete-box" + (model.expandAutocomplete ? " expanded" : "") },
-                    h("span", { className: "autocomplete-results" },
-                        h("span", {}, model.autocompleteResults.title),
-                        " ",
-                        model.autocompleteResults.results.map(r =>
-                            h("span", { key: r.value }, h("a", { title: r.title, onClick: e => { e.preventDefault(); model.autocompleteClick(r); model.didUpdate(); }, href: "about:blank" }, r.value), " ")
-                        )
-                    ),
-                    h("a", { className: "char-btn", hidden: !model.autocompleteResults.sobjectName, href: model.showDescribeUrl(), title: "Show field info for the " + model.autocompleteResults.sobjectName + " object" }, "i"),
-                    h("a", { href: "about:blank", className: "char-btn", onClick: this.onToggleExpand, title: "Show all suggestions or only the first line" }, model.expandAutocomplete ? "-" : "+")
-                ),
-                h("div", { hidden: !model.showHelp },
-                    h("p", {}, "Use for quick one-off data exports. Enter a ", h("a", { href: "http://www.salesforce.com/us/developer/docs/soql_sosl/", target: "_blank" }, "SOQL query"), " in the box above and press Export."),
-                    h("p", {}, "Press Ctrl+Space to insert all field name autosuggestions or to load suggestions for field values."),
-                    h("p", {}, "Supports the full SOQL language. The columns in the CSV output depend on the returned data. Using subqueries may cause the output to grow rapidly. Bulk API is not supported. Large data volumes may freeze or crash your browser.")
-                )
-            ),
-            h("div", { className: "action-arrow" },
-                h("div", { className: "arrow-body" }, h("button", { disabled: model.isWorking, onClick: this.onExport, title: "Ctrl+Enter" }, "Export")),
-                h("div", { className: "arrow-head" })
-            ),
-            h("div", { className: "area", id: "result-area" },
-                h("div", { className: "result-bar" },
-                    h("h1", {}, "Export result"),
-                    h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsExcel, title: "Copy exported data to clipboard for pasting into Excel or similar" }, "Copy (Excel format)"),
-                    " ",
-                    h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsCsv, title: "Copy exported data to clipboard for saving as a CSV file" }, "Copy (CSV)"),
-                    " ",
-                    h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsJson, title: "Copy raw API output to clipboard" }, "Copy (JSON)"),
-                    " ",
-                    h("input", { placeholder: "Filter results", value: model.resultsFilter, onInput: this.onResultsFilterInput }),
-                    h("span", { className: "result-status" },
-                        h("span", {}, model.exportStatus),
-                        h("button", { className: "cancel-btn", disabled: !model.isWorking, onClick: this.onStopExport }, "Stop")
-                    )
-                ),
-                h("textarea", { id: "result-text", readOnly: true, value: model.exportError || "", hidden: model.exportError == null }),
-                h("div", { id: "result-table", ref: "scroller", hidden: model.exportError != null }
-                    /* the scroll table goes here */
-                )
-            )
+            // h("div", { className: "area" },
+            //     h("h1", {}, "Export query"),
+            //     h("label", {},
+            //         h("input", { type: "checkbox", checked: model.queryAll, onChange: this.onQueryAllChange, disabled: model.queryTooling }),
+            //         " ",
+            //         h("span", {}, "Include deleted and archived records?")
+            //     ),
+            //     h("label", { title: "With the tooling API you can query more metadata, but you cannot query regular data" },
+            //         h("input", { type: "checkbox", checked: model.queryTooling, onChange: this.onQueryToolingChange, disabled: model.queryAll }),
+            //         " ",
+            //         h("span", {}, "Use Tooling API?")
+            //     ),
+            //     h("label", {},
+            //         h("select", { value: JSON.stringify(model.selectedHistoryEntry), onChange: this.onSelectHistoryEntry, className: "query-history" },
+            //             h("option", { value: JSON.stringify(null) }, "Query history"),
+            //             model.queryHistory.list.map(q => h("option", { key: JSON.stringify(q), value: JSON.stringify(q) }, q.query.substring(0, 300)))
+            //         ),
+            //         h("a", { href: "about:blank", onClick: this.onClearHistory, title: "Clear query history", className: "char-btn" }, "X")
+            //     ),
+            //     h("label", {},
+            //         h("select", { value: JSON.stringify(model.selectedSavedEntry), onChange: this.onSelectSavedEntry, className: "query-history" },
+            //             h("option", { value: JSON.stringify(null) }, "Saved queries"),
+            //             model.savedHistory.list.map(q => h("option", { key: JSON.stringify(q), value: JSON.stringify(q) }, q.query.substring(0, 300)))
+            //         ),
+            //         h("a", { href: "about:blank", onClick: this.onAddToHistory, title: "Add query to saved history", className: "char-btn" }, "+"),
+            //         h("a", { href: "about:blank", onClick: this.onRemoveFromHistory, title: "Remove query from saved history", className: "char-btn" }, "X"),
+            //         h("a", { href: "about:blank", onClick: this.onClearSavedHistory, title: "Clear saved history", className: "char-btn" }, "XX")
+            //     ),
+            //     h("a", { href: "about:blank", id: "export-help-btn", onClick: this.onToggleHelp }, "Export help"),
+            //     h("textarea", { id: "query", ref: "query", style: { maxHeight: (model.winInnerHeight - 200) + "px" } }),
+            //     h("div", { className: "autocomplete-box" + (model.expandAutocomplete ? " expanded" : "") },
+            //         h("span", { className: "autocomplete-results" },
+            //             h("span", {}, model.autocompleteResults.title),
+            //             " ",
+            //             model.autocompleteResults.results.map(r =>
+            //                 h("span", { key: r.value }, h("a", { title: r.title, onClick: e => { e.preventDefault(); model.autocompleteClick(r); model.didUpdate(); }, href: "about:blank" }, r.value), " ")
+            //             )
+            //         ),
+            //         h("a", { className: "char-btn", hidden: !model.autocompleteResults.sobjectName, href: model.showDescribeUrl(), title: "Show field info for the " + model.autocompleteResults.sobjectName + " object" }, "i"),
+            //         h("a", { href: "about:blank", className: "char-btn", onClick: this.onToggleExpand, title: "Show all suggestions or only the first line" }, model.expandAutocomplete ? "-" : "+")
+            //     ),
+            //     h("div", { hidden: !model.showHelp },
+            //         h("p", {}, "Use for quick one-off data exports. Enter a ", h("a", { href: "http://www.salesforce.com/us/developer/docs/soql_sosl/", target: "_blank" }, "SOQL query"), " in the box above and press Export."),
+            //         h("p", {}, "Press Ctrl+Space to insert all field name autosuggestions or to load suggestions for field values."),
+            //         h("p", {}, "Supports the full SOQL language. The columns in the CSV output depend on the returned data. Using subqueries may cause the output to grow rapidly. Bulk API is not supported. Large data volumes may freeze or crash your browser.")
+            //     )
+            // ),
+            // h("div", { className: "action-arrow" },
+            //     h("div", { className: "arrow-body" }, h("button", { disabled: model.isWorking, onClick: this.onExport, title: "Ctrl+Enter" }, "Export")),
+            //     h("div", { className: "arrow-head" })
+            // ),
+            // h("div", { className: "area", id: "result-area" },
+            //     h("div", { className: "result-bar" },
+            //         h("h1", {}, "Export result"),
+            //         h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsExcel, title: "Copy exported data to clipboard for pasting into Excel or similar" }, "Copy (Excel format)"),
+            //         " ",
+            //         h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsCsv, title: "Copy exported data to clipboard for saving as a CSV file" }, "Copy (CSV)"),
+            //         " ",
+            //         h("button", { disabled: !model.canCopy(), onClick: this.onCopyAsJson, title: "Copy raw API output to clipboard" }, "Copy (JSON)"),
+            //         " ",
+            //         h("input", { placeholder: "Filter results", value: model.resultsFilter, onInput: this.onResultsFilterInput }),
+            //         h("span", { className: "result-status" },
+            //             h("span", {}, model.exportStatus),
+            //             h("button", { className: "cancel-btn", disabled: !model.isWorking, onClick: this.onStopExport }, "Stop")
+            //         )
+            //     ),
+            //     h("textarea", { id: "result-text", readOnly: true, value: model.exportError || "", hidden: model.exportError == null }),
+            //     h("div", { id: "result-table", ref: "scroller", hidden: model.exportError != null }
+            //         /* the scroll table goes here */
+            //     )
+            // )
         );
     }
 }
