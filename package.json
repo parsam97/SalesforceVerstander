@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-inspector",
+  "name": "salesforce-verstander",
   "scripts": {
     "eslint": "eslint .",
     "firefox-dev-build": "node scripts/dev-build.js firefox",
