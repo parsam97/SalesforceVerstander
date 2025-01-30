@@ -130,6 +130,7 @@ textarea[hidden] {
 .area {
   background-color: #F8F8F8;
   padding: 3px;
+  margin: 5px;
   border-radius: 5px;
   border: 1px solid #E0E3E5;
   border-top: 3px solid #1797C0;
